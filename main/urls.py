@@ -5,17 +5,23 @@ from .views import (
     HomeView,
     OrderSummaryView,
     add_to_cart,
+    products,
+    products_by_category,
     remove_from_cart,
     remove_single_item_from_cart,
     PaymentView,
     AddCouponView,
-    RequestRefundView
+    RequestRefundView,
+
+    SearchView
 )
 
-app_name = 'core'
+app_name = 'main'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('products/<category>', products_by_category, name='products-category'),
+    path('products/', products, name='products'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
     path('product/<slug>/', ItemDetailView.as_view(), name='product'),
@@ -25,5 +31,7 @@ urlpatterns = [
     path('remove-item-from-cart/<slug>/', remove_single_item_from_cart,
          name='remove-single-item-from-cart'),
     path('payment/<payment_option>/', PaymentView.as_view(), name='payment'),
-    path('request-refund/', RequestRefundView.as_view(), name='request-refund')
+    path('request-refund/', RequestRefundView.as_view(), name='request-refund'),
+
+    path('search', SearchView.as_view(), name='search'),
 ]
